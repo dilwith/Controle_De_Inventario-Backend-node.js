@@ -3,6 +3,7 @@ import db from '../database/connect.mjs'
 import {insertProduct} from './produto_CRUD/insertProd.js'
 import { getProdByCategoria } from "./produto_CRUD/getprod.js";
 import { insertEstoque } from "./estoque_CRUD/insertEstoq.js";
+import { getEstoqueData } from "./estoque_CRUD/getEstoq.js";
 
 //import estoqueRouter from "./Estoque_Router.js";
 
@@ -15,8 +16,7 @@ const router = Router();
 router.post("/produto" , (req,res) => {
     const {nome, categoria, und_medida , cod_item} = req.body
     console.log("nome: " + nome + "|| categoria: " + categoria + " || und_medida: " + und_medida + " || cod_item: " + cod_item)
-    insertProduct(nome , categoria , und_medida , cod_item)
-    return 1
+    insertProduct(nome , categoria , und_medida , cod_item, res)
 })
 router.get("/prod", (req,res) => {
     const {categoria} = req.body
@@ -25,9 +25,9 @@ router.get("/prod", (req,res) => {
 })
 router.post("/estoque" , (req,res) => {
     const {tipo_Movimento,data_Validade,quantidade,preco_Unitario,data_Compra_Venda,status} = req.body
-    insertEstoque(tipo_Movimento,data_Validade,quantidade,preco_Unitario,data_Compra_Venda,status)
-    return 1
+    insertEstoque(tipo_Movimento,data_Validade,quantidade,preco_Unitario,data_Compra_Venda,status , res)
 })
+router.get('/estoque', getEstoqueData);
 
 
 export default router
