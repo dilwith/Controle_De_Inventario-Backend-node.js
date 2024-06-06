@@ -2,37 +2,41 @@ import { Sequelize } from "sequelize";
 import db from '../database/connect.mjs'
 
 const Model_estoque = db.define("Estoq",{
-    tipo_Movimento: {
+    tipo_mov: {
         type: Sequelize.INTEGER, // 0 (compra) -=- 1 (venda)
         allowNull: true
     },
-    data_Validade: {
+    data_validade: {
         type: Sequelize.DATE,  //pode ser null
         allowNull: true
     },
     quantidade: {
         type: Sequelize.INTEGER  //do mesmo produto
     },
-    preco_Unitario: {
+    preco_unitario: {
         type: Sequelize.FLOAT,   //Preco unitario do produto relacionado na tabela
         allowNull: true
     },
     data: {
         type: Sequelize.DATE   //Data relativa a quando a compra é efetuada e de quando a venda é efeituada de um produto
-    }
-    /*
-    percentual_Lucro: {
-        type: Sequelize.FLOAT   //
     },
-    */
+    id_produto: {
+        type: Sequelize.INTEGER     //Referente ao produto que estou manipulando
+    },
+
     //createdAt ------ updatedAt SOMENTE PARA O SEQUELIZE
+
+    // **BREAKPOINT** Pois sequelize tende a colocar s no final de tudo essa bosta
 },{
-    tableName: 'Estoque', // Specify the exact table name
+    tableName: 'Estoque', //Especifique o nome exato da tabela caso esteja conectando errado aqui
     timestamps: false,
 })
 
 export default Model_estoque
 
+
+
+//CODIGO ANTIGO Caso queria dar uma olhada
 /*
 SELECT 
 

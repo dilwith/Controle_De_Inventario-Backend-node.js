@@ -1,0 +1,30 @@
+
+COMENTARIO-> REFERENTES A ROTA DE VENDAS : 
+INSERT INTO public.vendas ( id_estoque, data , valor_venda , quantidade) VALUES (3,'2024-05-22',22.99 , 3)
+INSERT INTO public."Estoque"(tipo_mov , quantidade ,preco_unitario , data ) values (1,4,22.99,'2024-05-22')
+
+// para salvar a QUERY 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT 
+	(select SUM(Est.quantidade) FROM public."Estoque" AS Est WHERE Est.tipo_mov = 0 AND Est.id_produto = 3) -
+	(select SUM(Est.quantidade) FROM public."Estoque" AS Est WHERE Est.tipo_mov = 1 AND Est.id_produto = 3) AS qtd_estoque,
+	(select Est.preco_unitario FROM public."Estoque" AS Est WHERE Est.id_produto = 3 ORDER BY Est.data DESC LIMIT 1) AS Ultimo_preco,
+	
+	
+P.nome , P.categoria from public."Estoque" AS E
+LEFT JOIN public."Produtos" AS P
+ON P.id = E.id_produto
+WHERE E.id_produto = 3
+GROUP BY P.nome , P.categoria ;
+
+SELECT * FROM public."Estoque" where tipo_mov=0
+SELECT * FROM public."Estoque" where tipo_mov=1
+
+SELECT * FROM public.vendas
+
+
+COMENTARIO-> REFERENTES A ROTA DE VENDAS : 
+INSERT INTO public.vendas ( id_estoque, data , valor_venda , quantidade) VALUES (3,'2024-05-22',22.99 , 3);
+INSERT INTO public."Estoque"(tipo_mov ,data_validade, quantidade ,preco_unitario , data ,id_produto) values (1,'2025-06-21',3,22.99,'2024-05-22',3);
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

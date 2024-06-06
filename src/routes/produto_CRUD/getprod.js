@@ -1,10 +1,9 @@
 import Model_produto from '../../models/produto_M.js'
+import cliente from '../../database/connect.mjs'
 
 export async function getProdByCategoria(categoria,res){
+    //**BREAKPOINT** to lower case foi colocado apenas como padrao aqui pois o postgre é case sensitive, entao cuidado 
     let aux = categoria.toLowerCase()
-    console.log("aux : " + aux)
-    console.log("categoria : " + categoria)
-    console.log("********------------------------------------------------------********")
     try {
         const produtos = await Model_produto.findAll({
             where: {
@@ -19,3 +18,18 @@ export async function getProdByCategoria(categoria,res){
     }
     
 } 
+
+export async function getProdByNome(nome , res){
+    let aux2 = nome.toLowerCase()
+    try{
+    const produto = await cliente.query(`
+        SELECT prod.* FROM public."Produtos" AS prod
+        WHERE prod.nome LIKE '%${aux2}%'
+    `) 
+    console.log(produto);
+    res.status(200).json(produto[0]);
+    }
+    catch{
+        res.status(500).json({ error: "Erro ao buscar produtos por ID" });
+    }
+}

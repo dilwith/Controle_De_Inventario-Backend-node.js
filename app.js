@@ -1,6 +1,11 @@
 import express from 'express';
 import router from './src/routes/index.js';
 
+//------------------------------------ |! SUMARIO !| ---------------------------------------------//
+//**BREAKPOINT** --> PONTO IMPORTANTE DE VUNERABILIDADE DO CODIGO, resumo: pode dar merda no futuro entao da uma olhada nos breakpoints se tiver duvida
+
+
+
 //DATABASE
 import db from './src/database/connect.mjs'
 

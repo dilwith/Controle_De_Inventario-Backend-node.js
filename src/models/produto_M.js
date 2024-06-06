@@ -15,6 +15,7 @@ const Model_produto = db.define("Produtos",{
         type: Sequelize.STRING
     }
     //createdAt ------ updatedAt SOMENTE PARA O SEQUELIZE
+    //**BREAKPOINT** Nao estou especificando o nome exato da tabela como na model de estoque, mas ta funcionando entao tudo certo, se der merda so copiar o que fiz na model de estoque :D
 })
 
 export default Model_produto

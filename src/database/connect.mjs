@@ -2,17 +2,13 @@ import { Sequelize } from "sequelize";
 
 //--------------------------SEQUELIZE ----------------------------------
 
+//**BREAKPOINT** É APENAS A CONEXAO COM O BD MAS CUIDADO -> Verifique o usuario a senha etc...
 const cliente = new Sequelize('Electron_Projeto', 'postgres', 'aluno', {
     host: 'localhost',
     dialect:  'postgres' 
   })
 
   export default cliente
-
-
-
-
-
 
 /*  // ANTIGO CONEXAO COM O BANCO DE DADOS POSTGREE -> SEM SEQUELIZE
 
