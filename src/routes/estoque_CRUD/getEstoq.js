@@ -30,7 +30,7 @@ export async function getEstoqueData(id_produto, res) {
           }
 
     } catch (error) {
-        console.error("Erro ao buscar dados do estoque: ", error);
+        console.error("Erro ao buscar dados do estoque!!!: ", error);
         res.status(500).json({ error: "Erro ao tentar buscar dados do estoque" });
     }
 }

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev" : "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "nodemon": "^3.1.0"
   }
 }

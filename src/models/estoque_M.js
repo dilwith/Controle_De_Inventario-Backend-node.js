@@ -3,7 +3,7 @@ import db from '../database/connect.mjs'
 
 const Model_estoque = db.define("Estoq",{
     tipo_mov: {
-        type: Sequelize.INTEGER, // 0 (compra) -=- 1 (venda)
+        type: Sequelize.INTEGER, // 0 (compra) -=- 1 (venda) -=- 2 (Estoque inicial) -=- 3 (Baixa -> Venceu etc)
         allowNull: true
     },
     data_validade: {

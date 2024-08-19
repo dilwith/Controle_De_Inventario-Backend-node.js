@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create a PDF</h1>
+        <label for="product-id">ID do Produto:</label>
+        <input type="text" id="product-id" placeholder="Digite o ID do produto">
+        <button onclick="createPDF()">Generate PDF</button>
+    </div>
+
+    <script>
+        async function fetchEstoqueData(id_produto) {
+            const response = await fetch(`http://localhost:3001/estoque?id_produto=${id_produto}`);
+            if (!response.ok) {
+                throw new Error('Erro ao buscar dados do estoque');
+            }
+            return response.json();
+        }
+
+        async function createPDF() {
+            const { jsPDF } = window.jspdf;
+            const id_produto = document.getElementById('product-id').value;
+
+            try {
+                const data = await fetchEstoqueData(id_produto);
+
+                const doc = new jsPDF();
+
+                // Contorno vermelho
+                doc.setLineWidth(1.5);
+                doc.setDrawColor(255, 0, 0); // Cor vermelha
+                doc.rect(5, 5, 200, 287); // Tamanho do contorno
+
+                // Estrutura do PDF
+                doc.setFontSize(18);
+                doc.text("Relatório de Estoque", 105, 20, null, null, 'center');
+
+                doc.setLineWidth(0.5);
+                doc.setDrawColor(0, 0, 0); // Cor preta
+
+                // Caixa para Nome
+                doc.rect(10, 30, 190, 20);
+                doc.setFontSize(12);
+                doc.text(`Nome: ${data.nome}`, 15, 45);
+
+                // Caixa para Categoria
+                doc.rect(10, 55, 190, 20);
+                doc.text(`Categoria: ${data.categoria}`, 15, 70);
+
+                // Caixa para Quantidade em Estoque
+                doc.rect(10, 80, 190, 20);
+                doc.text(`Quantidade em Estoque: ${data.qtd_estoque}`, 15, 95);
+
+                // Caixa para Último Preço
+                doc.rect(10, 105, 190, 20);
+                doc.text(`Último Preço: R$ ${data.ultimo_preco}`, 15, 120);
+
+                // Rodapé
+                doc.setFontSize(10);
+                doc.text("Relatório gerado automaticamente", 105, 290, null, null, 'center');
+
+                doc.save(`estoque_${id_produto}.pdf`);
+            } catch (error) {
+                alert('Erro ao gerar PDF: ' + error.message);
+                console.error('Erro ao gerar PDF:', error);
+            }
+        }
+    </script>
+</body>
+</html>

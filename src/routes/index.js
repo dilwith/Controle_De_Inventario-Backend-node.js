@@ -27,10 +27,10 @@ router.get("/produto/categoria", (req,res) => {
     getProdByCategoria(categoria , res)
 })
 router.post("/estoque" , (req,res) => {
-    const {tipo_Movimento,data_Validade,quantidade,preco_Unitario,data_Compra_Venda,status} = req.body
-    insertEstoque(tipo_Movimento,data_Validade,quantidade,preco_Unitario,data_Compra_Venda,status , res)
+    const {tipo_mov,data_Validade,quantidade,preco_Unitario,data,id_produto} = req.body
+    insertEstoque(tipo_mov,data_Validade,quantidade,preco_Unitario,data,id_produto, res)
 })
-router.get('/estoque', (req,res) =>{
+router.get('/estoque/teste', (req,res) =>{
     const {id_produto} = req.body
     console.log("id_produto :" + id_produto)
     getEstoqueData(id_produto , res)
